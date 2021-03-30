@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::resource('/product', ProductController::class)->only([
+    'index', 'show', 'store', 'update', 'destroy',
+]);
+Route::resource('/boxes', BoxController::class)->only([
+    'index', 'show', 'store', 'destroy',
+]);
+
+Route::get('/boxes/{box}/product/{product}', [BoxController::class, 'addProductToBox']);
