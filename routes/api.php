@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::resource('/product', ProductController::class)->only([
     'index', 'show', 'store', 'update', 'destroy',
 ]);
-Route::resource('/boxes', BoxController::class)->only([
+Route::resource('/box', BoxController::class)->only([
     'index', 'show', 'store', 'destroy',
 ]);
 
-Route::get('/boxes/{box}/product/{product}', [BoxController::class, 'addProductToBox']);
+Route::get('/box/{box}/product/{product}', [BoxController::class, 'addProductToBox']);
