@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\BoxController;
+use App\Http\Controllers\API\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/product', ProductController::class)->only([
+Route::resource('/products', ProductController::class)->only([
     'index', 'show', 'store', 'update', 'destroy',
 ]);
-Route::resource('/box', BoxController::class)->only([
+Route::resource('/boxes', BoxController::class)->only([
     'index', 'show', 'store', 'destroy',
 ]);
 
-Route::get('/box/{box}/product/{product}', [BoxController::class, 'addProductToBox']);
+Route::get('/boxes/{box}/products/{product}', [BoxController::class, 'addProductToBox']);
