@@ -19,14 +19,63 @@ class Box extends Model
         'discount',
     ];
 
-
     /**
-     * Products that are in the box
+     * Products that are in the box.
      *
      * @return BelongsToMany
      */
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    /**
+     * Get content attribute.
+     *
+     * @return array
+     */
+    public function getContentAttribute(): array
+    {
+        // Get products belonging to the box
+        $products = $this->products()->get(['id', 'name']);
+
+        $products_counts = [];
+        $products_names  = [];
+
+        // Get count of every product in the box
+        foreach ($products as $product) {
+            if (!isset($products_counts[$product->id])) {
+                $products_counts[$product->id] = 1;
+                $products_names[$product->id]  = $product->name;
+            } else {
+                $products_counts[$product->id] += 1;
+            }
+        }
+
+        $content = [];
+        foreach ($products_counts as $id => $count) {
+            array_push($content, [
+                'name'  => $products_names[$id],
+                'count' => $count,
+            ]);
+        }
+        return $content;
+    }
+
+    /**
+     * Get price attribute.
+     *
+     * @return float
+     */
+    public function getPriceAttribute()
+    {
+        // Get products belonging to the box
+        $products = $this->products()->get(['id', 'price']);
+        $price    = 0.00;
+
+        foreach ($products as $product) {
+            $price += $product->price;
+        }
+        return round(($price * (100 - $this->discount) / 100), 2);
     }
 }
