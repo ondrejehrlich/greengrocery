@@ -16,7 +16,6 @@
     </head>
 
     <body>
-        Ahoj
         <div id="app"></div>
 
         <!-- Scripts -->
