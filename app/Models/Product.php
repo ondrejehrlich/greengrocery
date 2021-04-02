@@ -30,7 +30,7 @@ class Product extends Model
      */
     public function boxes(): BelongsToMany
     {
-        return $this->belongsToMany(Box::class);
+        return $this->belongsToMany(Box::class)->distinct();
     }
 
     /**
@@ -42,5 +42,4 @@ class Product extends Model
     {
         return $this->belongsTo(Supplier::class);
     }
-
 }
