@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\BoxController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +19,11 @@ use App\Http\Controllers\API\ProductController;
 Route::resource('/products', ProductController::class)->only([
     'index', 'show', 'store', 'update', 'destroy',
 ]);
+
 Route::resource('/boxes', BoxController::class)->only([
     'index', 'show', 'store', 'destroy',
 ]);
 
-Route::get('/boxes/{box}/products/{product}', [BoxController::class, 'addProductToBox']);
+Route::get('/suppliers', [SupplierController::class, 'index']);
+
+Route::post('/add-to-box/box/{box}/product/{product}', [BoxController::class, 'addProductToBox']);
