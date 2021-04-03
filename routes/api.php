@@ -26,4 +26,4 @@ Route::resource('/boxes', BoxController::class)->only([
 
 Route::get('/suppliers', [SupplierController::class, 'index']);
 
-Route::post('/add-to-box/box/{box}/product/{product}', [BoxController::class, 'addProductToBox']);
+Route::post('/products/{product}/add-to-box/{box}', [ProductController::class, 'addProductToBox']);

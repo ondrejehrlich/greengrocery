@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Box;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -30,7 +31,7 @@ class ProductController extends Controller
         $orderBy = $request->order_by == 'last_edit' ? 'updated_at' : 'id';
 
         // How many product on one page.
-        $perPage = 5;
+        $perPage = 10;
 
         $products = Product::with('supplier')
 
@@ -76,7 +77,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\NewProductRequest;  $request
      * @return \Illuminate\Http\Response
      */
     public function store(NewProductRequest $request)
@@ -122,11 +123,11 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\NewProductRequest;  $request
      * @param  Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(NewProductRequest $request, Product $product)
     {
         $product->name        = $request->name;
         $product->price       = (float) $request->price;
@@ -159,7 +160,31 @@ class ProductController extends Controller
         $product->delete();
 
         return response()->json([
-            'message' => 'Product deleted'
+            'message' => "Product with id: $product->id deleted"
         ], 201);
+    }
+
+    /**
+     * Add product to the box.
+     *
+     * @param Box $box
+     * @param Product $product
+     * @return \Illuminate\Http\Response
+     */
+    public function addProductToBox(Product $product, Box $box)
+    {
+        if ($product->stock > 0) {
+            $product->decrement('stock');
+            $product->save();
+            $box->products()->attach($product->id);
+
+            return response()->json([
+                'message' => 'Product added to box number: ' . $box->id,
+            ], 201);
+        }
+
+        return response()->json([
+            'message' => 'Out of stock',
+        ], 200);
     }
 }

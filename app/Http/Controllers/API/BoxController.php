@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Box;
-use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewBoxRequest;
@@ -29,7 +28,7 @@ class BoxController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\NewBoxRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(NewBoxRequest $request)
@@ -73,29 +72,5 @@ class BoxController extends Controller
         return response()->json([
             'message' => 'Box deleted',
         ], 201);
-    }
-
-    /**
-     * Add product to the box.
-     *
-     * @param Box $box
-     * @param Product $product
-     * @return \Illuminate\Http\Response
-     */
-    public function addProductToBox(Box $box, Product $product)
-    {
-        if ($product->stock > 0) {
-            $product->decrement('stock');
-            $product->save();
-            $box->products()->attach($product->id);
-
-            return response()->json([
-                'message' => 'Product added to box number: ' . $box->id,
-            ], 201);
-        }
-
-        return response()->json([
-            'message' => 'Out of stock',
-        ], 200);
     }
 }
