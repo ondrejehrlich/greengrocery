@@ -21,7 +21,7 @@ Route::resource('/products', ProductController::class)->only([
 ]);
 
 Route::resource('/boxes', BoxController::class)->only([
-    'index', 'show', 'store', 'destroy',
+    'index', 'show', 'store', 'update', 'destroy',
 ]);
 
 Route::get('/suppliers', [SupplierController::class, 'index']);
