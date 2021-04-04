@@ -1,17 +1,67 @@
 <template>
-	<div>
-		<nav>
+	<div class="main-container">
+		<header class="main-header">
+			<div class="logo">
+				<router-link to="/">
+					<img src="/img/logo.svg" alt="logo" />
+				</router-link>
+			</div>
 			<TheNavigation />
-		</nav>
-		<main>
-			<TheStats />
+		</header>
+		<main class="">
+			<Transition name="slide-fade">
+				<FlashMessage
+					class="flash-message"
+					v-show="flashMessaging"
+					:message="flashMessage"
+					@hide-message="hideFlashMessage()"
+				/>
+			</Transition>
+
 			<router-view />
 		</main>
 	</div>
 </template>
 
 <script>
-export default {}
+import TheNavigation from './components/TheNavigation'
+import FlashMessage from './components/FlashMessage'
+
+export default {
+	components: {
+		TheNavigation,
+		FlashMessage
+	},
+
+
+	data() {
+		return {
+			flashMessage: '',
+			flashMessaging: false
+		}
+	},
+
+	methods: {
+		showFlashMessage(message) {
+			this.flashMessage = message
+			this.flashMessaging = true
+
+			setTimeout(() => {
+				this.hideFlashMessage()
+			}, 2500)
+		},
+
+		hideFlashMessage() {
+			this.flashMessaging = false
+		}
+	},
+
+	mounted() {
+		this.$root.$on('flash-message', $event => {
+			this.showFlashMessage($event.message)
+		})
+	}
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style src="./App.scss" lang="scss" scoped></style>

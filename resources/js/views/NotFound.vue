@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h1>Not found!</h1>
-		<p>Go to the <a href="/">Homepage</a></p>
+		<p>Go to the <router-link to="/">Homepage</router-link></p>
 	</div>
 </template>
 
