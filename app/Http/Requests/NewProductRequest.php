@@ -24,11 +24,11 @@ class NewProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'     => 'required|string',
-            'image'    => 'image',
-            'stock'    => 'required|integer|gt:0',
-            'price'    => 'required|numeric|gt:0',
-            'supplier' => 'required'
+            'name'        => 'required|string',
+            'image'       => 'image',
+            'stock'       => 'required|integer|gte:0',
+            'price'       => 'required|numeric|gt:0',
+            'supplier_id' => 'required'
         ];
     }
 }
