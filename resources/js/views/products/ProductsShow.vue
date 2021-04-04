@@ -89,6 +89,7 @@ export default {
 	},
 
 	created() {
+		// Load data about the product.
 		this.loadData()
 	}
 }

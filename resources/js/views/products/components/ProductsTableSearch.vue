@@ -152,6 +152,11 @@ export default {
 	},
 
 	methods: {
+		/**
+		 * Emit new search parameters from the form.
+		 *
+		 * @returns void
+		 */
 		emitNewSearchParameters: _.debounce(function() {
 			// Non-arrow function has to be here because of "this"
 

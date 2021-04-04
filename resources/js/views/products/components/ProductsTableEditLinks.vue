@@ -28,6 +28,11 @@ export default {
 		}
 	},
 	methods: {
+		/**
+		 * Emit delete-product event to the parent.
+		 *
+		 * @returns void
+		 */
 		deleteProduct() {
 			if (window.confirm('Are you sure? There`s no going back!')) {
 				this.$emit('delete-product', { id: this.id })

@@ -72,6 +72,11 @@ export default {
 			})
 		},
 
+		/**
+		 * Load original values of the product.
+		 *
+		 * @returns void
+		 */
 		loadOriginalValues() {
 			const loader = this.$loading.show()
 			this.callApi('get', `/api/products/${this.$route.params.id}`).then(
