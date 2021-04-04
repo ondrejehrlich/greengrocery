@@ -94,9 +94,9 @@ class ProductController extends Controller
 
         // Image upload
         if ($request->file('image')) {
-            $fileName       = time() . '_' . $request->file('image')->getClientOriginalName();
-            $filePath       = $request->file('image')->storeAs('public/productImages', $fileName);
-            $product->image = $filePath;
+            $fileName = time();
+            $request->file('image')->storeAs('/public/productImages', $fileName);
+            $product->image = $fileName;
         }
 
         $product->save();
@@ -139,9 +139,9 @@ class ProductController extends Controller
 
         // Image upload
         if ($request->file('image')) {
-            $fileName       = time() . '_' . $request->file('image')->getClientOriginalName();
-            $filePath       = $request->file('image')->storeAs('public/productImages', $fileName);
-            $product->image = $filePath;
+            $fileName = time();
+            $request->file('image')->storeAs('/public/productImages', $fileName);
+            $product->image = $fileName;
         }
 
         $product->save();
