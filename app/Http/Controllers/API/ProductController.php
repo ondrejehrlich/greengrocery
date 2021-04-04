@@ -28,7 +28,10 @@ class ProductController extends Controller
         $inStock = $request->in_stock === 'true' ? true : false;
 
         // Order by. Default is id.
-        $orderBy = $request->order_by == 'last_edit' ? 'updated_at' : 'id';
+        $orderBy = $request->order_by === 'last_edit' ? 'updated_at' : 'id';
+
+        // Order direction. Default is asc.
+        $orderDir = $request->order_dir === 'desc' ? 'desc' : 'asc';
 
         // How many product on one page.
         $perPage = 10;
@@ -61,7 +64,7 @@ class ProductController extends Controller
                     })
 
                     // Order by.
-                    ->orderBy($orderBy, 'asc')
+                    ->orderBy($orderBy, $orderDir)
 
                     // Pagination.
                     ->paginate($perPage)
@@ -90,16 +93,16 @@ class ProductController extends Controller
         $product->supplier_id = $request->supplier_id;
 
         // Image upload
-        if ($request->file) {
-            $fileName       = time() . '_' . $request->file->getClientOriginalName();
-            $filePath       = $request->file('file')->storeAs('productImages', $fileName);
-            $product->image = '/productImages/' . $filePath;
+        if ($request->file('image')) {
+            $fileName       = time() . '_' . $request->file('image')->getClientOriginalName();
+            $filePath       = $request->file('image')->storeAs('public/productImages', $fileName);
+            $product->image = $filePath;
         }
 
         $product->save();
 
         return response()->json([
-            'message' => 'Product created',
+            'message' => "Product created with id $product->id",
             'data'    => $product,
         ], 201);
     }
@@ -135,16 +138,16 @@ class ProductController extends Controller
         $product->supplier_id = $request->supplier_id;
 
         // Image upload
-        if ($request->file) {
-            $fileName       = time() . '_' . $request->file->getClientOriginalName();
-            $filePath       = $request->file('file')->storeAs('productImages', $fileName);
-            $product->image = '/productImages/' . $filePath;
+        if ($request->file('image')) {
+            $fileName       = time() . '_' . $request->file('image')->getClientOriginalName();
+            $filePath       = $request->file('image')->storeAs('public/productImages', $fileName);
+            $product->image = $filePath;
         }
 
         $product->save();
 
         return response()->json([
-            'message' => 'Product updated',
+            'message' => "Product with id $product->id updated",
             'data'    => $product
         ], 201);
     }
