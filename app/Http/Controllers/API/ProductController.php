@@ -6,6 +6,7 @@ use App\Models\Box;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\NewProductRequest;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -94,7 +95,7 @@ class ProductController extends Controller
 
         // Image upload
         if ($request->file('image')) {
-            $fileName = time();
+            $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
             $request->file('image')->storeAs('/public/productImages', $fileName);
             $product->image = $fileName;
         }
@@ -137,9 +138,13 @@ class ProductController extends Controller
         $product->stock       = (int) $request->stock;
         $product->supplier_id = $request->supplier_id;
 
-        // Image upload
+        // Image
         if ($request->file('image')) {
-            $fileName = time();
+            // If a new image comes with request, the old one is removed.
+            Storage::delete('/public/productImages/' . $product->image);
+
+            // Upload new image
+            $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
             $request->file('image')->storeAs('/public/productImages', $fileName);
             $product->image = $fileName;
         }
