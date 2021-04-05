@@ -55,6 +55,7 @@ class Box extends Model
         $content = [];
         foreach ($products_counts as $id => $count) {
             array_push($content, [
+                'id'    => $id,
                 'name'  => $products_names[$id],
                 'count' => $count,
             ]);
