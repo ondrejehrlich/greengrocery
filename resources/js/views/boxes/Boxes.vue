@@ -84,20 +84,22 @@ export default {
 		 * @returns void
 		 */
 		deleteBox(box) {
-			let loader = this.$loading.show()
+			if (window.confirm('Are you sure? There`s no going back!')) {
+				let loader = this.$loading.show()
 
-			this.callApi('delete', `/api/boxes/${box.id}`).then(res => {
-				// Remove the box from the boxes array
-				this.boxes = this.boxes.filter(b => b.id !== box.id)
+				this.callApi('delete', `/api/boxes/${box.id}`).then(res => {
+					// Remove the box from the boxes array
+					this.boxes = this.boxes.filter(b => b.id !== box.id)
 
-				// Emit flash message
-				this.$root.$emit('flash-message', {
-					message: res.data.message
+					// Emit flash message
+					this.$root.$emit('flash-message', {
+						message: res.data.message
+					})
+
+					// Hide loader
+					loader.hide()
 				})
-
-				// Hide loader
-				loader.hide()
-			})
+			}
 		}
 	},
 
