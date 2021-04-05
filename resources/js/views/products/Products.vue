@@ -8,7 +8,9 @@
 				@search-products="loadFilteredProducts($event)"
 			/>
 
-			<table class="table is-bordered is-striped is-hoverable">
+			<table
+				class="table is-bordered is-fullwidth is-striped is-hoverable"
+			>
 				<thead>
 					<tr>
 						<th>ID</th>
