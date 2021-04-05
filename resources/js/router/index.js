@@ -7,6 +7,8 @@ import ProductsCreate from '../views/products/ProductsCreate'
 import ProductsEdit from '../views/products/ProductsEdit'
 import ProductsShow from '../views/products/ProductsShow'
 import Boxes from '../views/boxes/Boxes.vue'
+import BoxesCreate from '../views/boxes/BoxesCreate'
+import BoxesEdit from '../views/boxes/BoxesEdit'
 import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueRouter)
@@ -42,10 +44,14 @@ export default new VueRouter({
 			path: '/boxes',
 			component: Boxes
 		},
-		// {
-		// 	path: '/boxes/:id',
-		// 	component: ''
-		// },
+		{
+			path: '/boxes/create',
+			component: BoxesCreate
+		},
+		{
+			path: '/boxes/:id/edit',
+			component: BoxesEdit
+		},
 
 		// Not Found
 		{

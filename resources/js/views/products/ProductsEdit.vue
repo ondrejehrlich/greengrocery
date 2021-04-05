@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1 class="title">Edit product</h1>
+		<h1 class="title">Edit product id: {{ values.id }}</h1>
 		<div class="products-form-container">
 			<ProductsForm
 				:errors="errors"
@@ -54,7 +54,7 @@ export default {
 						message: res.data.message
 					})
 					console.log(res)
-					this.$router.push('/products')
+					this.$router.push(`/products/${this.values.id}`)
 				} else {
 					this.errors = res.data.errors
 				}
