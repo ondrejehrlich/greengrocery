@@ -14,11 +14,13 @@ class BoxController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $boxes = Box::has('products') // Only boxes with at least one product will be shown.
-                    ->get()
-                    ->append(['content', 'price']); // Content and price have to be appended to every box.
+        $boxes = Box::when($request->empty_boxes === 'false', function ($boxes) {
+            return $boxes->has('products'); // Only boxes with at least one product will be shown.
+        })
+            ->get()
+            ->append(['content', 'price']); // Content and price have to be appended to every box.
 
         return response()->json([
             'data' => $boxes
@@ -38,7 +40,7 @@ class BoxController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'Box created',
+            'message' => "Box created with id $box->id",
             'data'    => $box
         ], 201);
     }
@@ -60,6 +62,25 @@ class BoxController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  App\Http\Requests\NewProductRequest;  $request
+     * @param  Product $product
+     * @return \Illuminate\Http\Response
+     */
+    public function update(NewBoxRequest $request, Box $box)
+    {
+        $box->discount = (int) $request->discount;
+
+        $box->save();
+
+        return response()->json([
+            'message' => "Box with id $box->id updated",
+            'data'    => $box
+        ], 201);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  Box $box
@@ -70,7 +91,7 @@ class BoxController extends Controller
         $box->delete();
 
         return response()->json([
-            'message' => 'Box deleted',
+            'message' => "Box with id $box->id deleted",
         ], 201);
     }
 }
