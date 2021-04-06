@@ -1,10 +1,12 @@
 ## About this repository
 
-This is a project of an app for a shop with greengroceries that is sold by boxes. This project is made using [Laravel](https://laravel.com) and [Vue.js](https://vuejs.org).
+This is a web application project for a fruit and vegetable store that sells its products in boxes. This project is made using [Laravel](https://laravel.com) and [Vue.js](https://vuejs.org).
+
+This project is mainly focused on the backend in Laravel, so design is a side issue. For example, it is not responsive.
 
 I did not consider it necessary to use Vuex or a more sophisticated API calling system for such a small project.
 
-## Installing by composer
+## Installing
 
 Clone repository.
 
