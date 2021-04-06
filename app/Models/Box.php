@@ -68,7 +68,7 @@ class Box extends Model
      *
      * @return float
      */
-    public function getPriceAttribute()
+    public function getPriceAttribute(): float
     {
         // Get products belonging to the box
         $products = $this->products()->get(['id', 'price']);

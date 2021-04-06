@@ -12,6 +12,7 @@ class BoxController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -30,7 +31,7 @@ class BoxController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\NewBoxRequest  $request
+     * @param  NewBoxRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(NewBoxRequest $request)
@@ -64,7 +65,7 @@ class BoxController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  App\Http\Requests\NewProductRequest;  $request
+     * @param  NewProductRequest  $request
      * @param  Product $product
      * @return \Illuminate\Http\Response
      */
