@@ -5,61 +5,29 @@
 			New box
 		</router-link>
 		<div class="cards">
-			<div class="card" v-for="box in boxes" :key="box.id">
-				<header class="card-header card-title">
-					<p class="card-header-title">Box id: {{ box.id }}</p>
-					<p class="card-header-title">
-						<router-link :to="`/boxes/${box.id}/edit`">
-							<span class="icon">
-								<i class="mdi mdi-pencil-outline"></i>
-							</span>
-						</router-link>
-
-						<a @click="deleteBox({ id: box.id })">
-							<span class="icon">
-								<i class="mdi mdi-trash-can-outline"></i>
-							</span>
-						</a>
-					</p>
-				</header>
-				<div class="card-content">
-					<div class="content">
-						<h5>Discount: {{ box.discount }}%</h5>
-						<h5>Products:</h5>
-						<table class="table">
-							<thead>
-								<tr>
-									<th>Product</th>
-									<th>Count</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr
-									v-for="(product, index) in box.content"
-									:key="index"
-								>
-									<td>
-										{{ product.name }} (id:
-										{{ product.id }})
-									</td>
-									<td>{{ product.count }}x</td>
-								</tr>
-							</tbody>
-						</table>
-						<h5>Final price: ${{ box.price }}</h5>
-					</div>
-				</div>
-			</div>
+			<BoxesCard
+				v-for="box in boxes"
+				:key="box.id"
+				:box="box"
+				@delete-box="deleteBox($event.id)"
+				@discount-updated="loadBoxes"
+			/>
 		</div>
 	</div>
 </template>
 
 <script>
+import BoxesCard from './components/BoxesCard'
+
 export default {
 	data() {
 		return {
 			boxes: []
 		}
+	},
+
+	components: {
+		BoxesCard
 	},
 
 	methods: {
@@ -83,13 +51,13 @@ export default {
 		 *
 		 * @returns void
 		 */
-		deleteBox(box) {
+		deleteBox(id) {
 			if (window.confirm('Are you sure? There`s no going back!')) {
 				let loader = this.$loading.show()
 
-				this.callApi('delete', `/api/boxes/${box.id}`).then(res => {
+				this.callApi('delete', `/api/boxes/${id}`).then(res => {
 					// Remove the box from the boxes array
-					this.boxes = this.boxes.filter(b => b.id !== box.id)
+					this.boxes = this.boxes.filter(b => b.id !== id)
 
 					// Emit flash message
 					this.$root.$emit('flash-message', {
