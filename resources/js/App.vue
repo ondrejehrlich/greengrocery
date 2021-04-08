@@ -8,7 +8,7 @@
 			</div>
 			<TheNavigation />
 		</header>
-		<main class="">
+		<main>
 			<Transition name="slide-fade">
 				<FlashMessage
 					class="flash-message"
@@ -32,7 +32,6 @@ export default {
 		TheNavigation,
 		FlashMessage
 	},
-
 
 	data() {
 		return {
