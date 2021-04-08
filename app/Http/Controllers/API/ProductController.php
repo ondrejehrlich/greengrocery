@@ -34,7 +34,7 @@ class ProductController extends Controller
         // Order direction. Default is asc.
         $orderDir = $request->order_dir === 'desc' ? 'desc' : 'asc';
 
-        // How many product on one page.
+        // How many products on one page.
         $perPage = 10;
 
         $products = Product::with('supplier')
@@ -49,7 +49,7 @@ class ProductController extends Controller
                         return $products->where('id', $idSearch);
                     })
 
-                    // Search by supplier
+                    // Search by supplier.
                     ->when($supplierSearch, function ($products, $supplierSearch) {
                         return $products->whereHas(
                             'supplier',
@@ -70,7 +70,7 @@ class ProductController extends Controller
                     // Pagination.
                     ->paginate($perPage)
 
-                    // Append query string to pagination links
+                    // Append query string to pagination links.
                     ->appends(request()->except(['page', '_token']));
 
         return response()->json([
@@ -143,7 +143,7 @@ class ProductController extends Controller
             // If a new image comes with request, the old one is removed.
             Storage::delete('/public/productImages/' . $product->image);
 
-            // Upload new image
+            // Upload new image.
             $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
             $request->file('image')->storeAs('/public/productImages', $fileName);
             $product->image = $fileName;

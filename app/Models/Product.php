@@ -24,7 +24,7 @@ class Product extends Model
     ];
 
     /**
-     * Boxes containing the product
+     * Boxes containing the product.
      *
      * @return BelongsToMany
      */
@@ -34,7 +34,7 @@ class Product extends Model
     }
 
     /**
-     * Supplier of the product
+     * Supplier of the product.
      *
      * @return BelongsTo
      */

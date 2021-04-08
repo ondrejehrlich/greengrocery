@@ -32,22 +32,22 @@ class BoxSeeder extends Seeder
         $boxes = Box::get(['id']);
         foreach ($boxes as $box) {
             $products                      = [];
-            $numberOfProducts              = [4, 5, 6, 7, 8, 9, 10, 11, 12]; // random number of products in every box
+            $numberOfProducts              = [4, 5, 6, 7, 8, 9, 10, 11, 12]; // random number of products in every box.
             $randomIndexInNumberOfProducts = array_rand($numberOfProducts, 1);
             $productIDs                    = [];
 
-            // Fill $productIDs array with IDs of every product in DB
+            // Fill $productIDs array with IDs of every product in DB.
             foreach (Product::get('id')->toArray() as $product) {
                 array_push($productIDs, $product['id']);
             }
 
-            // get random number of random products
+            // Get random number of random products.
             for ($i=0; $i < $numberOfProducts[$randomIndexInNumberOfProducts]; $i++) {
-                $randomIndex = array_rand($productIDs, 1); // get random indexes
+                $randomIndex = array_rand($productIDs, 1); // Get random indexes.
                 array_push($products, $productIDs[$randomIndex]);
             }
 
-            // insert data into pivot table
+            // Insert data into pivot table.
             $box->products()->sync($products);
         }
     }

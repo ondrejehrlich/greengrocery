@@ -9,7 +9,7 @@ use Faker\Factory;
 class ProductSeeder extends Seeder
 {
     /**
-     * Fake names of products that will be inserted to DB
+     * Fake names of products that will be inserted to DB.
      *
      * @var array
      */
@@ -32,7 +32,7 @@ class ProductSeeder extends Seeder
     {
         $products = [];
 
-        // Create a faker
+        // Create a faker.
         $faker    = Factory::create();
 
         for ($i = 1; $i < 10; $i++) {

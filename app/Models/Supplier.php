@@ -11,7 +11,7 @@ class Supplier extends Model
     use HasFactory;
 
     /**
-     * Products of the supplier
+     * Products of the supplier.
      *
      * @return HasMany
      */
