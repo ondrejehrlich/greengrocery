@@ -41,6 +41,11 @@ export default {
 	},
 
 	methods: {
+		/**
+		 * Show flash message
+		 *
+		 * @returns void
+		 */
 		showFlashMessage(message) {
 			this.flashMessage = message
 			this.flashMessaging = true
@@ -50,6 +55,11 @@ export default {
 			}, 2500)
 		},
 
+		/**
+		 * Hide flash message
+		 *
+		 * @returns void
+		 */
 		hideFlashMessage() {
 			this.flashMessaging = false
 		}
